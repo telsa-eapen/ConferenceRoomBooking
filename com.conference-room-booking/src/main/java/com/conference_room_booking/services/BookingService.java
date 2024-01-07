@@ -57,7 +57,7 @@ public class BookingService implements IBookingService{
 				  if(confRoomService.searchAvailabilityByRoom(room, slot)) {
 					  Booking booking = new BookingBuilder().setUserId(userId).setBuildingName(buildingName).setFloorId(floorId)
 								.setConferenceRoomId(confRoomId).setBookingSlot(s).setBookingSatus(BookingStatus.BOOKED).getBooking();
-						bookingRepo.addBooking(booking);
+						booking = bookingRepo.addBooking(booking);
 						Date today= Date.valueOf(LocalDate.now());
 						if(room.getBookedSlots()== null || room.getBookedSlots().size() == 0) {
 							Map<Date,List<Slot>> listOfSlots = new HashMap<>();

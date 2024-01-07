@@ -54,8 +54,12 @@ public class BuildingRepository implements IBuildingRepository {
 	public boolean updateConferenceRoom(int userId,String room,Slot s,String buildingName,int floorId,Date today) {
 		for(Slot slot : this.buildingRepo.get(buildingName).getListOfFloors().get(floorId).getListOfConferenceRoom().get(room).getBookedSlots().get(today)) {
 			if(slot.getStartTime() == s.getStartTime() && slot.getEndTime() == s.getEndTime()) {
-				this.buildingRepo.get(buildingName).getListOfFloors().get(floorId).getListOfConferenceRoom().get(room).getBookedSlots().get(today).remove(slot);
-			return true;
+				List<Slot> listOfSlots = this.buildingRepo.get(buildingName).getListOfFloors().get(floorId).getListOfConferenceRoom().get(room).getBookedSlots().get(today);
+				listOfSlots.remove(slot);
+				HashMap<Date,List<Slot>> mapOfSlots = new HashMap<>();
+				mapOfSlots.put(today,listOfSlots);
+				this.buildingRepo.get(buildingName).getListOfFloors().get(floorId).getListOfConferenceRoom().get(room).setBookedSlots(mapOfSlots);
+				return true;
 			}
 		}
 

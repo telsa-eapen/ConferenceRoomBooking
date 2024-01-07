@@ -88,10 +88,19 @@ public class ConferenceRoomService implements IConferenceRoomService{
 		System.out.println(bookedSlots.size());
 		//sort the slots by start time and loop and see overlapping?
 		Collections.sort(bookedSlots, new SlotComparator());
+		if(bookedSlots.size() == 1) {
+			if(bookedSlots.get(0).getEndTime() <= chosenStartTime ||
+					bookedSlots.get(0).getStartTime() >= chosenEndTime) {
+				return true;
+			}
+		}
 		for(int i=1;i<bookedSlots.size();i++) {
 			if(bookedSlots.get(i).getEndTime() > bookedSlots.get(i-1).getEndTime()) {
 				if(bookedSlots.get(i-1).getEndTime() <= chosenStartTime &&
 						bookedSlots.get(i).getStartTime() >= chosenEndTime) {
+					return true;
+				}
+				if(i+1 == bookedSlots.size() && (chosenStartTime > bookedSlots.get(i).getEndTime())) {
 					return true;
 				}
 			}
