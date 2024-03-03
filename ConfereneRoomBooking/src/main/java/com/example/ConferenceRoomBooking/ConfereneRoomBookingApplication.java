@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import com.example.ConferenceRoomBooking.services.IBuildingService;
 
 
-@SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class })
+@SpringBootApplication
 public class ConfereneRoomBookingApplication {
 
 	@Autowired
